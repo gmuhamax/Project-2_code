@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous"></script>
-    <script src="./js/tool.js" defer></script>
-    <script src="./js/main.js" defer></script>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+      integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
+    <div class="loader">
+      <img src="./images/logo.svg" alt="Logo" />
+    </div>
     <header class="header">
-      <img src="./images/logo.png" class="header__logo" alt="logo">
-        <h1 class="header__title">FIND BEST EVENTS AROUND THE WORLD</h1>
-        <form action="GET" class="header__wrapper">
-          <label for="#search">
-            <input id="search" name="search" type="text" class="header__input" placeholder="Start searching" />
-          </label>
-          <label for="#country">
-            <select id="country" name="country" class="header__input">
-              <option value="" selected>Choose country</option>
-              <option value="US">USA</option>
-              <option value="UK">United Kingdom</option>
-            </select>
-          </label>
-        </form>
+      <img src="./images/logo.png" class="header__logo" alt="logo" />
+      <h1 class="header__title">FIND BEST EVENTS AROUND THE WORLD</h1>
+      <form action="GET" class="header__wrapper">
+        <label for="#search">
+          <input id="search" name="search" type="text" class="header__input" placeholder="Start searching" />
+        </label>
+        <div>
+          <span class="header__input" data-value="">Choose country</span>
+          <ul class="header__input-wrapper">
+            <li class="header__input-item" data-value="">Choose country</li>
+            <li class="header__input-item" data-value="US">USA</li>
+            <li class="header__input-item" data-value="DE">Germany</li>
+            <li class="header__input-item" data-value="FR">France</li>
+          </ul>
+        </div>
+      </form>
     </header>
     <main class="main">
       <div class="container"></div>
     </main>
     <div class="wrapper__modal">
-      <div class="modal"></div>
+      <div class="modal">
+        <img class="modal__close" src="./images/close.png" />
+      </div>
     </div>
     <footer class="footer">
       <ul class="footer__numbers"></ul>
       <p class="footer__text">© 2021 | All Rights Reserved | Developed with ♥ by GoIT Students</p>
     </footer>
+    <script type="module" src="./js/main.js"></script>
   </body>
 </html>

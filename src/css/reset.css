@@ -6,7 +6,7 @@
 }
 
 /* Убираем внутренние отступы */
-ul[class],
+
 ol[class] {
   padding: 0;
 }
@@ -18,7 +18,6 @@ h2,
 h3,
 h4,
 p,
-ul[class],
 ol[class],
 li,
 figure,
@@ -65,6 +64,10 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+a {
+  text-decoration: none;
 }
 
 /* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */

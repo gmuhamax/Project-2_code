@@ -1,43 +1,54 @@
-const check = (el, default_) => (el ? el : default_);
-const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const cont = document.querySelector('.container');
+const pages = document.querySelector('.footer__numbers');
 
-async function loadCard(page, search, country) {
-    try {
-        let links = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&keyword=${search}&page=${page}&countryCode=${country}`
-        let response = await fetch(links);
-        response = await response.json();
+const apiKey = 'Wrom1SFhmivsqr0qBMcV6NJoa0MTYBhn';
 
-        console.log(links);
+export const check = (el, default_) => (el ? el : default_);
+export const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-        cont.innerHTML = "";
-        pages.innerHTML = createPagination(Number(page), Number(response.page.totalPages) > 49 ? 49 : Number(response.page.totalPages) - 1);
+export async function loadCard(page, search, country) {
+  try {
+    let links = `https://app.ticketmaster.com/discovery/v2/events?apikey=${apiKey}&keyword=${search}&page=${page}${
+      country ? '&countryCode=' + country : ''
+    }`;
+    let response = await fetch(links);
+    response = await response.json();
 
-        let data_now = new Date();
-        let default_time = `${data_now.getFullYear()}-${data_now.getMonth()}-${data_now.getDay()}`;
+    cont.innerHTML = '';
+    pages.innerHTML = createPagination(
+      Number(response.page.number) + 1,
+      Number(response.page.totalPages) > 50 ? 50 : Number(response.page.totalPages) - 1
+    );
 
-        response._embedded.events.forEach((el) => {
-            cont.innerHTML += `
-                <div class="main__card" style="--from: ${random(-500, 500)}px; --time: ${random(500, 2000)}ms;">
+    let data_now = new Date();
+    let default_time = `${data_now.getFullYear()}-${data_now.getMonth()}-${data_now.getDay()}`;
+
+    response._embedded.events.forEach(el => {
+      cont.innerHTML += `
+                <div data-id="${el.id}" class="main__card" style="--from: ${random(-500, 500)}px; --time: ${random(
+        500,
+        2000
+      )}ms;">
                     <img src="${el.images[0].url}" class="main__card-preview">
-                    <h2 class="main__card-title" data-id="${el.id}">${el.name}</h2>
+                    <h2 class="main__card-title">${el.name}</h2>
                     <span class="main__card-data">${check(el.dates.start.localDate, default_time)}</span>
-                    <span class="main__card-place">${check(el.dates.timezone, "America/New_York")}</span>
+                    <span class="main__card-place">${check(el._embedded.venues[0].name, 'online')}</span>
                 </div>
                 `;
-        });
-    } catch (error) {
-        cont.innerHTML = "<h2 class='header__title'>NOT FOUND</h2>"
-    }
+    });
+  } catch (error) {
+    cont.innerHTML = "<h2 class='header__title'>NOT FOUND</h2>";
+  }
 }
 
-function createPagination(page, totalPages){
+export function createPagination(page, totalPages) {
   let liTag = '';
   let beforePage = page - 1;
   let afterPage = page + 1;
 
-  if(page > 2) {
+  if (page > 2) {
     liTag += `<li class="footer__numbers-number">1</li>`;
-    if(page > 3){
+    if (page > 3) {
       liTag += `<li class="footer__numbers-number">...</li>`;
     }
   }
@@ -51,7 +62,7 @@ function createPagination(page, totalPages){
   if (page == 1) {
     afterPage = afterPage + 2;
   } else if (page == 2) {
-    afterPage  = afterPage + 1;
+    afterPage = afterPage + 1;
   }
 
   for (let plength = beforePage; plength <= afterPage; plength++) {
@@ -61,11 +72,11 @@ function createPagination(page, totalPages){
     if (plength == 0) {
       plength += 1;
     }
-    liTag += `<li class="footer__numbers-number${page == plength ? " active" : ""}">${plength}</li>`;
+    liTag += `<li class="footer__numbers-number${page == plength ? ' active' : ''}">${plength}</li>`;
   }
 
-  if(page < totalPages - 1){
-    if(page < totalPages - 2){
+  if (page < totalPages - 1) {
+    if (page < totalPages - 2) {
       liTag += `<li class="footer__numbers-number">...</li>`;
     }
     liTag += `<li class="footer__numbers-number">${totalPages}</li>`;
